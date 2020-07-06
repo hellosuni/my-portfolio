@@ -26,3 +26,13 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+/**
+ * Fetches stats from the servers and adds them to the DOM.
+ */
+function getInfo() {
+  fetch('/data').then(response => response.json()).then((info) => {
+    const infoListElement = document.getElementById('info-container');
+    infoListElement.innerHTML = info;
+  });
+}
