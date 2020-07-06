@@ -26,3 +26,40 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+/**
+ * Fetches random info from the server and adds it to the DOM.
+ */
+function getRandomInfo() {
+  console.log('Fetching random info.');
+
+  // The fetch() function returns a Promise because the request is asynchronous.
+  const responsePromise = fetch('/data');
+
+  // When the request is complete, pass the response into handleResponse().
+  responsePromise.then(handleResponse);
+}
+
+/**
+ * Handles response by converting it to text and passing the result to
+ * addInfoToDom().
+ */
+function handleResponse(response) {
+  console.log('Handling the response.');
+
+  // response.text() returns a Promise, because the response is a stream of
+  // content and not a simple variable.
+  const textPromise = response.text();
+
+  // When the response is converted to text, pass the result into the
+  // addInfoToDom() function.
+  textPromise.then(addInfoToDom);
+}
+
+/** Adds a random info to the DOM. */
+function addInfoToDom(info) {
+  console.log('Adding info to dom: ' + info);
+
+  const infoContainer = document.getElementById('info-container');
+  infoContainer.innerText = info;
+}
