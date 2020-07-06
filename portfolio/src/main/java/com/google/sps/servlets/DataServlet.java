@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +31,27 @@ public class DataServlet extends HttpServlet {
   @Override
   public void init() {
     infolist = new ArrayList<>();
-    infolist.add("1+1=2");
-    infolist.add("2+2=4");
-    infolist.add("4+4=8");
+    infolist.add("Today is Monday.");
+    infolist.add("Tomorrow is Tuesday.");
+    infolist.add("Hahaha.");
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String info = infolist.get((int) (Math.random() * infolist.size()));
+    String json = convertToJsonUsingGson(infolist);
 
-    response.setContentType("text/html;");
-    response.getWriter().println(info);
+    // Send the JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  /**
+   * Converts a ServerStats instance into a JSON string using the Gson library. Note: We first added
+   * the Gson library dependency to pom.xml.
+   */
+  private String convertToJsonUsingGson(List<String> infolist) {
+    Gson gson = new Gson();
+    String json = gson.toJson(infolist);
+    return json;
   }
 }
