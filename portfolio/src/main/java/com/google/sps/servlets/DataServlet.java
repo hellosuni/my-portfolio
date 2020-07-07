@@ -54,4 +54,14 @@ public class DataServlet extends HttpServlet {
     String json = gson.toJson(infolist);
     return json;
   }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String name = request.getParameter("name-input");
+
+    // Respond with the result.
+    response.setContentType("text/html;");
+    response.getWriter().println("Hello, " + name + "!");
+  }
 }
